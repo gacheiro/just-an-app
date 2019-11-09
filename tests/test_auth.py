@@ -1,7 +1,7 @@
 import os
 import pytest
 
-import app.auth.views
+import app.auth.routes
 from app import create_app
 
 
@@ -23,7 +23,7 @@ def client():
     os.environ['APP_SETTINGS'] = 'config.TestingConfig'
     os.environ['FLASK_ENV'] = 'test'
     # monkeypatch verify_token
-    app.auth.views.verify_token = verify_token
+    app.auth.routes.verify_token = verify_token
     with create_app().test_client() as client:
         yield client
 
