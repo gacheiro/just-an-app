@@ -1,2 +1,2 @@
 from .schemas import UsuarioSchema, ViagemSchema
-from .views import api_blueprint
+from .routes import api_blueprint

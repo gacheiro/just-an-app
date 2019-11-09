@@ -1,1 +1,1 @@
-from .views import auth_blueprint, verify_token
+from .routes import auth_blueprint, verify_token
