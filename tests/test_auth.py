@@ -5,7 +5,7 @@ import app.auth.views
 from app import create_app
 
 
-VALID_TOKEN = 'valid-token'
+VALID_TOKEN = 'valid_token'
 INVALID_TOKEN = 'invalid_token'
 
 
@@ -16,7 +16,7 @@ def verify_token(token, *args):
         }
     else:
         return {}
-    
+
 
 @pytest.fixture
 def client():
@@ -24,7 +24,6 @@ def client():
     os.environ['FLASK_ENV'] = 'test'
     # monkeypatch verify_token
     app.auth.views.verify_token = verify_token
-
     with create_app().test_client() as client:
         yield client
 
@@ -45,4 +44,4 @@ def test_auth__with_firebase_invalid_token(client):
 
 def test_auth__without_token(client):
     response = client.post('/auth', headers={})
-    assert 401 == response.status_code
+    assert 400 == response.status_code

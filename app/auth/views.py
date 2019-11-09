@@ -21,15 +21,17 @@ def firebase_auth():
         # disable auth for testing purposes
         # g.claims are not set
         return
-    # expects token in format `'Authorization': 'Bearer ' + token`
-    token = request.headers.get('Authorization', '').split(' ').pop()
+        
     try:
-        claims = verify_token(token)
-        g.claims = claims # save claims to use later
-    except ValueError:
-        claims = {}
+        # expects token in format `"Authorization: Bearer " + token`
+        token = request.headers['Authorization'].split(' ').pop()
+    except (KeyError, ValueError):
+        abort(400)
+
+    claims = verify_token(token)
     if not claims:
         abort(401)
+    g.claims = claims # save claims to use later
 
 
 @auth_blueprint.route('/auth', methods=['GET', 'POST'])
