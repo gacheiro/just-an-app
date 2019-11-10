@@ -1,3 +1,4 @@
+import os
 import google.auth.transport.requests
 import google.oauth2.id_token
 from flask import Blueprint, request, g, abort, current_app
@@ -17,7 +18,7 @@ def verify_token(token, verifyer=verify_firebase_token):
 @auth_blueprint.before_app_request
 def firebase_auth():
     """Authenticates user with a firebase token."""
-    if current_app.config.get('DISABLE_AUTH'):
+    if os.environ.get('DISABLE_AUTH') == '1':
         # disable auth for testing purposes
         # g.claims are not set
         return

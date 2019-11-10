@@ -10,11 +10,9 @@ from app.models import db
 def client():
     os.environ['APP_SETTINGS'] = 'config.TestingConfig'
     os.environ['FLASK_ENV'] = 'test'
-
-    app = create_app()
     # disable auth while testing
-    app.config['DISABLE_AUTH'] = True
-
+    os.environ['DISABLE_AUTH'] = '1'
+    app = create_app()
     with app.test_client() as client:
         with app.app_context():
             db.create_all()

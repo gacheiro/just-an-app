@@ -4,7 +4,6 @@ import pytest
 import app.auth.routes
 from app import create_app
 
-
 VALID_TOKEN = 'valid_token'
 INVALID_TOKEN = 'invalid_token'
 
@@ -22,6 +21,7 @@ def verify_token(token, *args):
 def client():
     os.environ['APP_SETTINGS'] = 'config.TestingConfig'
     os.environ['FLASK_ENV'] = 'test'
+    os.environ['DISABLE_AUTH'] = '0'
     # monkeypatch verify_token
     app.auth.routes.verify_token = verify_token
     with create_app().test_client() as client:
