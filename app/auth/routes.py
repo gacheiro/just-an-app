@@ -26,7 +26,7 @@ def firebase_auth():
     try:
         # expects token in format `"Authorization: Bearer " + token`
         token = request.headers['Authorization'].split(' ').pop()
-    except (KeyError, ValueError):
+    except KeyError:
         abort(400)
 
     claims = verify_token(token)

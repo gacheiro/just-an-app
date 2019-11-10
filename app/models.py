@@ -27,3 +27,9 @@ class Viagem(db.Model):
     de = db.Column(db.String(100), nullable=False)
     para = db.Column(db.String(100), nullable=False)
     data = db.Column(db.DateTime, nullable=False)
+
+
+class FirebaseID(db.Model):
+    id = db.Column(db.String, primary_key=True)
+    user_id = db.Column(db.Integer,
+        db.ForeignKey('usuario.id'), nullable=False)
