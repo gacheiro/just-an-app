@@ -10,15 +10,50 @@ from app.models import db
 def client():
     os.environ['APP_SETTINGS'] = 'config.TestingConfig'
     os.environ['FLASK_ENV'] = 'test'
-    # disable auth while testing
     os.environ['DISABLE_AUTH'] = '1'
     app = create_app()
     with app.test_client() as client:
         with app.app_context():
             db.create_all()
             yield client
+            db.drop_all()
+
+
+@pytest.fixture
+def auth():
+    """Reenables auth"""
+    os.environ['DISABLE_AUTH'] = '0'
+    yield
+    os.environ['DISABLE_AUTH'] = '1'
 
 
 def test_get_users(client):
-    response = client.get('/api/users')
-    assert 200 == response.status_code
+    rv = client.get('/api/users')
+    assert 200 == rv.status_code
+    assert 'application/json', rv.headers.get('Content-Type')
+    assert [] == rv.get_json().get('users')
+
+
+def test_get_user(client):
+    rv = client.get('api/users/1')
+    assert 200 == rv.status_code
+
+
+def test_new_user(client):
+    rv = client.post('/api/users')
+    assert 201 == rv.status_code
+
+
+def test_get_rides(client):
+    rv = client.get('/api/rides')
+    assert 200 == rv.status_code
+
+
+def test_get_ride(client):
+    rv = client.get('/api/rides/1')
+    assert 200 == rv.status_code
+
+
+def test_new_ride(client):
+    rv = client.post('api/rides')
+    assert 201 == rv.status_code

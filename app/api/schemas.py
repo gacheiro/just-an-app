@@ -6,6 +6,7 @@ class UsuarioSchema(Schema):
     firebase_id = fields.Str(dump_only=True)
     nome = fields.Str(validate=validate.Length(max=80))
     email = fields.Str(validate=validate.Length(max=120))
+    criado_em = fields.Date(dump_only=True)
 
 
 class ViagemSchema(Schema):
