@@ -13,7 +13,10 @@ def users():
     if request.method == 'GET':
         users = Usuario.query.all()
         result = usuario_schema.dump(users, many=True)
-        return {'users': result}
+        return {
+            'count': len(result),
+            'users': result,
+            }
     else:
         return {}, 201
     
@@ -29,6 +32,9 @@ def rides():
     if request.method == 'GET':
         rides = Viagem.query.all()
         result = viagem_schema.dump(rides, many=True)
-        return {'rides': result}
+        return {
+            'count': len(result),
+            'rides': result
+            }
     else:
         return {}, 201

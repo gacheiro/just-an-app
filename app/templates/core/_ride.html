@@ -1,0 +1,36 @@
+{% macro ride_card(ride) -%}
+  <div id="ride-card-{{ ride.id }}" class="card ride-card">
+    <div class="card-content">
+      <div class="media">
+        <div class="media-left">
+          <figure class="image is-48x48">
+            <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+          </figure>
+        </div>
+        <div class="media-content">
+          <p class="title is-4">{{ ride.usuario.nome|e }}</p>
+          <p class="subtitle is-6">@johnsmith</p>
+        </div>
+      </div>
+      <div class="content has-text-left">
+        <p>
+          Ofereço carona de <span class="tag is-info is-light is-medium">
+          {{ ride.de|e }}</span> para <span class="tag is-info is-light is-medium">
+          {{ ride.para|e }}</span> na data {{ ride.data }}.
+        </p>
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item">
+          <span>
+            Perfil no <a href="">Facebook</a>
+          </span>
+        </p>
+        <p class="card-footer-item">
+          <span>
+            Conversar no <a href="#">Mensenger</a>
+          </span>
+        </p>
+      </footer>            
+    </div>
+  </div>
+{%- endmacro %}

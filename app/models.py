@@ -23,4 +23,5 @@ class Viagem(db.Model):
     de = db.Column(db.String(100), nullable=False)
     para = db.Column(db.String(100), nullable=False)
     data = db.Column(db.DateTime, nullable=False)
-    criado_em = db.Column(db.DateTime, nullable=False)
+    criado_em = db.Column(db.DateTime, 
+        default=datetime.datetime.utcnow, nullable=False)

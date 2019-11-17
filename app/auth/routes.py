@@ -1,7 +1,7 @@
 import os
 import google.auth.transport.requests
 import google.oauth2.id_token
-from flask import Blueprint, request, g, abort, current_app
+from flask import Blueprint, request, g, abort, current_app, render_template
 
 HTTP_REQUEST = google.auth.transport.requests.Request()
 auth_blueprint = Blueprint('auth', __name__)
@@ -15,7 +15,7 @@ def verify_token(token, verifyer=verify_firebase_token):
     return verifyer(token)
     
 
-@auth_blueprint.before_app_request
+#@auth_blueprint.before_app_request
 def firebase_auth():
     """Authenticates user with a firebase token."""
     if os.environ.get('DISABLE_AUTH') == '1':
@@ -38,3 +38,12 @@ def firebase_auth():
 @auth_blueprint.route('/auth', methods=['GET', 'POST'])
 def auth():
     return "OK", 200
+
+
+@auth_blueprint.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('auth/login.html')
+    else:
+        # TODO: set the current_user in the session cookie
+        return "Ok", 200

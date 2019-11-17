@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block firebase_signin_flow %}
+  {% if not current_user %}
+    <!--script type="text/javascript">
+      function facebookSignin() {
+        firebase.auth().signInWithPopup(provider)      
+        .then(function(result) {
+            var token = result.credential.accessToken;
+            var user = result.user;        
+            console.log(token)
+            console.log(user)
+            
+            user.getIdToken().then(function(idToken) {
+            userIdToken = idToken;
+              loginBackend();
+              $('#user').text(welcomeName);
+              $('#logged-in').show();
+            });
+
+        }).catch(function(error) {
+            console.log(error.code);
+            console.log(error.message);
+        });
+      }
+
+      function facebookSignout() {
+        firebase.auth().signOut()
+        .then(function() {
+            console.log('Signout successful!')
+        }, function(error) {
+            console.log('Signout failed')
+        });
+      }
+
+      function loginBackend() {
+        $.post('/login', {
+          /* Set header for the XMLHttpRequest to get data from the web server
+          associated with userIdToken */
+          headers: {
+            'Authorization': 'Bearer ' + userIdToken
+          }
+        });
+      }
+    </script-->
+  {% endif %}
+{% endblock %}

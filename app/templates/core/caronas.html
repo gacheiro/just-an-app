@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% import 'core/_ride.html' as render_ride %}
+{% set resource_url = url_for('api.rides') %}
+
+{% block content %}
+<section class="hero is-info">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Título
+      </h1>
+      <h2 class="subtitle">
+        Subtítulo
+      </h2>
+    </div>
+  </div>
+</section>
+<section class="container">
+  <div id="rides-container">
+  {% for ride in rides %}
+    {{ render_ride.ride_card(ride) }}
+  {% endfor %}
+  </div>
+</section>
+{% endblock %}
