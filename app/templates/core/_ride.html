@@ -14,9 +14,9 @@
       </div>
       <div class="content has-text-left">
         <p>
-          Ofereço carona de <span class="tag is-info is-light is-medium">
-          {{ ride.de|e }}</span> para <span class="tag is-info is-light is-medium">
-          {{ ride.para|e }}</span> na data {{ ride.data }}.
+          Ofereço <span class="tag is-info is-light is-medium">
+          {{ ride.de|e }}</span> <i class="fas fa-arrow-right"></i> <span class="tag is-info is-light is-medium">
+          {{ ride.para|e }}</span> {{ ride.data|weekday }} {{ ride.data|datetimeformat }}h.
         </p>
       </div>
       <footer class="card-footer">

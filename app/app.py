@@ -19,7 +19,14 @@ def create_app():
     from app.api import api_blueprint
     app.register_blueprint(api_blueprint, url_prefix='/api')
 
-    # TODO: move cli commands out of create_app
+    register_commands(app, db)
+    register_template_filters(app)
+    return app
+
+
+def register_commands(app, db):
+    
+    # TODO: move cli commands to db/models.py
     @app.cli.command('create-db')
     def create_db():
         db.create_all()
@@ -49,9 +56,13 @@ def create_app():
                 usuario_id=user_id,
                 de=fake.city(),
                 para=fake.city(),
-                data=fake.date_time(),
+                data=fake.date_time_between(start_date="-20d", end_date="+20d"),
             )
             db.session.add(ride)
         db.session.commit()
 
-    return app
+
+def register_template_filters(app):
+    from app.util.filters import weekday, datetimeformat
+    app.template_filter('weekday')(weekday)
+    app.template_filter('datetimeformat')(datetimeformat)
