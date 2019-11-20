@@ -10,21 +10,12 @@ from app.models import db
 def client():
     os.environ['APP_SETTINGS'] = 'config.TestingConfig'
     os.environ['FLASK_ENV'] = 'test'
-    os.environ['DISABLE_AUTH'] = '1'
     app = create_app()
     with app.test_client() as client:
         with app.app_context():
             db.create_all()
             yield client
             db.drop_all()
-
-
-@pytest.fixture
-def auth():
-    """Reenables auth"""
-    os.environ['DISABLE_AUTH'] = '0'
-    yield
-    os.environ['DISABLE_AUTH'] = '1'
 
 
 def test_get_users(client):
@@ -51,7 +42,7 @@ def test_get_rides(client):
 
 def test_get_ride(client):
     rv = client.get('/api/rides/1')
-    assert 200 == rv.status_code
+    assert 404 == rv.status_code
 
 
 def test_new_ride(client):
