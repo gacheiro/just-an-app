@@ -60,7 +60,7 @@ def client():
 @pytest.fixture
 def populate(client):
     db.session.add_all(users)
-    db.session.add_all(caronas)
+    db.session.add_all(rides)
     db.session.commit()
 
 
