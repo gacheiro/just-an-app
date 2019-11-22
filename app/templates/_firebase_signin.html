@@ -6,9 +6,8 @@
 <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
 <script>
-  // Your web app's Firebase configuration
   const firebaseConfig = {
-    apiKey: "",
+    apiKey: "{{ config['FIREBASE_API_KEY'] }}",
     authDomain: "caronapp-945bb.firebaseapp.com",
     databaseURL: "https://caronapp-945bb.firebaseio.com",
     projectId: "caronapp-945bb",
@@ -45,6 +44,7 @@
             accessToken: accessToken,
             providerData: providerData
           }, null, '  ');
+          loginBackend(accessToken);
         });
       } else {
         // User is signed out.

@@ -7,6 +7,7 @@ from flask_migrate import Migrate
 def create_app():
     app = Flask(__name__, static_folder='static')
     app.config.from_object(os.environ['APP_SETTINGS'])
+    app.config['FIREBASE_API_KEY'] = os.environ['FIREBASE_API_KEY']
 
     from app.models import db
     db.init_app(app)

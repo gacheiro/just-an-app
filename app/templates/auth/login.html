@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
-{% block firebase_signin_flow %}
+{% block firebase_signin %}
+  {{ super() }}
   {% if not current_user %}
-    <!--script type="text/javascript">
+    <script type="text/javascript">
       function facebookSignin() {
         firebase.auth().signInWithPopup(provider)      
         .then(function(result) {
@@ -33,15 +34,15 @@
         });
       }
 
-      function loginBackend() {
-        $.post('/login', {
-          /* Set header for the XMLHttpRequest to get data from the web server
-          associated with userIdToken */
+      function loginBackend(accessToken) {
+        $.ajax({
+          url: '/login',
+          type: 'post',
           headers: {
-            'Authorization': 'Bearer ' + userIdToken
+            'Authorization': 'Bearer ' + accessToken
           }
         });
       }
-    </script-->
+    </script>
   {% endif %}
 {% endblock %}

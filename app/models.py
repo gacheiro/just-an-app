@@ -25,3 +25,15 @@ class Viagem(db.Model):
     data = db.Column(db.DateTime, nullable=False)
     criado_em = db.Column(db.DateTime, 
         default=datetime.datetime.utcnow, nullable=False)
+
+
+def create_user(claims):
+    """Creates a user with firebase claims."""
+    user = Usuario(
+        nome=claims['name'],
+        email=claims['email'],
+        firebase_id=claims['sub'],
+    )
+    db.session.add(user)
+    db.session.commit()
+    return user
