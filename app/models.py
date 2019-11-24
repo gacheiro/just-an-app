@@ -8,6 +8,7 @@ class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firebase_id = db.Column(db.String(80), 
         unique=True, nullable=False)
+    foto_url = db.Column(db.String(80), nullable=True)
     nome = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), 
         unique=True, nullable=False)
@@ -33,6 +34,7 @@ def create_user(claims):
         nome=claims['name'],
         email=claims['email'],
         firebase_id=claims['sub'],
+        foto_url=claims['picture'],
     )
     db.session.add(user)
     db.session.commit()

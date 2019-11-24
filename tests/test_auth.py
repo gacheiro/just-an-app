@@ -17,6 +17,7 @@ def verify_token(token, *args):
             'name': 'John Smith',
             'sub': USER_SUB,
             'email': 'johnsmith@example.com',
+            'picture': 'https://via.placeholder.com/48',
         }
     else:
         return {}
@@ -68,6 +69,7 @@ def test_user_is_created_at_first_login(client):
     user = Usuario.query.filter_by(firebase_id=session['user_sub']).first()
     assert 'John Smith' == user.nome
     assert 'johnsmith@example.com' == user.email
+    assert 'https://via.placeholder.com/48' == user.foto_url
     rv = client.post('/logout', follow_redirects=True)
     # login again, ensures same user is retrieved from db
     rv = client.post('/login', headers={
